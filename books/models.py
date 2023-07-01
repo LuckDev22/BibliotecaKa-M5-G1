@@ -11,7 +11,6 @@ class Book(models.Model):
     category = models.CharField(max_length=25)
     publishing_company = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
-
     user = models.ManyToManyField(
         "users.User", on_delete=models.SET_NULL, related_name="books"
     )
