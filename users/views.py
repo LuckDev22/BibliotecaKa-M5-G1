@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from .permission import UserPermission
+from .permission import IsAccountOwner
 from django.contrib.auth.hashers import make_password
+from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
+from .models import User
+from .serializers import UserSerializer
+from rest_framework.views import Request, Response
 
 
 # Create your views here.
