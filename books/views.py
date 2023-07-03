@@ -5,6 +5,7 @@ from .models import Book
 from .serializers import BookSerializer
 
 
+
 class BooksView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
