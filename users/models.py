@@ -16,8 +16,8 @@ class User(AbstractUser):
     telephone = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     date_birth = models.DateField()
-    cpf = models.IntegerField(max_length=11, unique=True)
+    cpf = models.IntegerField(unique=True)
     category_preference = models.CharField(
-        choices=CategoryChoices.choices, default=CategoryChoices.choices.OUTROS
+        max_length=255, choices=CategoryChoices.choices, default=CategoryChoices.OUTROS
     )
     is_student = models.BooleanField(null=True, default=False)
