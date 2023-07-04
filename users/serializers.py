@@ -4,7 +4,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         validators=[
             UniqueValidator(
