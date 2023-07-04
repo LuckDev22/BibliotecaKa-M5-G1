@@ -13,5 +13,5 @@ class Copy(models.Model):
         ("perdida", "Perdida"),
     ]
     status = models.CharField(max_length=20, choices=status_choices)
-    copies_numbers = models.IntegerField()
+    copies_numbers = models.IntegerField(default=0)
     book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
