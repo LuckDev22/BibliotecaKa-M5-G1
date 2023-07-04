@@ -14,10 +14,10 @@ class CategoryChoices(models.TextChoices):
 class User(AbstractUser):
     name = models.CharField(max_length=100)
     telephone = models.CharField(max_length=20)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(max_length=127, unique=True)
     date_birth = models.DateField()
     cpf = models.IntegerField(unique=True)
     category_preference = models.CharField(
-        max_length=255, choices=CategoryChoices.choices, default=CategoryChoices.OUTROS
+        max_length=60, choices=CategoryChoices.choices, default=CategoryChoices.OUTROS
     )
     is_student = models.BooleanField(null=True, default=False)
