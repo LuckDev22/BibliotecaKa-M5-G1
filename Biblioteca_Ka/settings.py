@@ -37,6 +37,12 @@ THIRD_PARTY_APPS = ["rest_framework"]
 
 
 # Application definition
+MY_APPS = [
+    "users",
+    "books",
+    "copies",
+    "loans",
+]
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -45,10 +51,17 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRD_PARTY_APPS
+]
+
+THIRD_PARTY_APPS = ["rest_framework"]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -88,6 +101,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
 
+
         "NAME": os.getenv("POSTGRES_DB"),
         "USERNAME": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
@@ -97,9 +111,22 @@ DATABASES = {
     "test": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+=======
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_DB_HOST"),
+        "PORT": os.getenv("POSTGRES_DB_PORT"),
+
     }
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
