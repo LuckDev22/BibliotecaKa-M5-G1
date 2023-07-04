@@ -2,9 +2,10 @@ from rest_framework import serializers
 from users.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
+from .models import CategoryChoices
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         validators=[
             UniqueValidator(
@@ -28,6 +29,20 @@ class UserSerializer(serializers.Serializer):
                 message="Telephone already registered.",
             )
         ]
+    )
+    username = serializers.CharField(
+        max_length=150,
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(), message="username already taken."
+            )
+        ],
+    )
+    date_birth = serializers.DateField(allow_null=True, default=None)
+    is_student = serializers.BooleanField(allow_null=True, default=False)
+    is_superuser = serializers.BooleanField(read_only=True)
+    category_preference = serializers.CharField(
+        allow_null=True, default=CategoryChoices.OUTROS
     )
 
     class Meta:
