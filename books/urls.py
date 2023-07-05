@@ -1,8 +1,9 @@
 from django.urls import path
 from .views import BooksView
 from loans.views import LoanView
+from copies.views import CopyView
 
 urlpatterns = [
     path("books/", BooksView.as_view()),
-    path("books/<int:pk>/loans/", LoanView.as_view()),
+    path("books/<int:pk>/copies/", CopyView.as_view()),
 ]
