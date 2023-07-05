@@ -13,4 +13,5 @@ class BooksView(ListCreateAPIView):
     serializer_class = BookSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        book = serializer.save()
+        book.user.set([self.request.user])
