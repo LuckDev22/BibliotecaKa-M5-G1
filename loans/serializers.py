@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Loan
-from .serializers import UserSerializer, CopySerializer
+from users.serializers import UserSerializer
+from copies.serializers import CopySerializer
 
 
 class LoanSerializer(serializers.ModelSerializer):
