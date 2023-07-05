@@ -16,7 +16,7 @@ class User(AbstractUser):
     telephone = models.CharField(max_length=20)
     email = models.EmailField(max_length=127, unique=True)
     date_birth = models.DateField()
-    cpf = models.IntegerField(unique=True, )
+    cpf = models.IntegerField(unique=True)
     category_preference = models.CharField(
         max_length=60, choices=CategoryChoices.choices, default=CategoryChoices.OUTROS
     )
