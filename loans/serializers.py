@@ -10,7 +10,7 @@ class LoanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loan
-        fields = ["id", " data_emprestimo", "data_devolucao", "copy", "user"]
+        fields = ["id", "data_emprestimo", "data_devolucao", "copy", "user"]
 
     def create(self, validated_data):
         return Loan.objects.create(**validated_data)
