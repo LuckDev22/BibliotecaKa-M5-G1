@@ -6,6 +6,7 @@ from .models import CategoryChoices
 
 
 class UserSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     email = serializers.EmailField(
         validators=[
             UniqueValidator(
@@ -38,12 +39,6 @@ class UserSerializer(serializers.ModelSerializer):
             )
         ],
     )
-    date_birth = serializers.DateField(allow_null=True, default=None)
-    is_student = serializers.BooleanField(allow_null=True, default=False)
-    is_superuser = serializers.BooleanField(read_only=True)
-    category_preference = serializers.CharField(
-        allow_null=True, default=CategoryChoices.OUTROS
-    )
 
     class Meta:
         model = User
@@ -64,15 +59,19 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data: dict) -> User:
-        password = validated_data.pop("password")
-        validated_data["is_superuser"] = validated_data.get("is_employee", False)
-        user = User.objects.create_user(password=password, **validated_data)
+        is_student = validated_data.pop("is_student", False)
+        validated_data["is_superuser"] = not is_student
+        validated_data["password"] = make_password(validated_data["password"])
+        user = User.objects.create(**validated_data)
+        user.is_student = is_student
+        user.save()
         return user
 
-    def update(self, instance: User, validated_data):
-        for key, values in validated_data.items():
-            if key == "password":
-                values = make_password(values)
-            setattr(instance, key, values)
-        instance.save()
-        return instance
+
+def update(self, instance: User, validated_data):
+    for key, values in validated_data.items():
+        if key == "password":
+            values = make_password(values)
+        setattr(instance, key, values)
+    instance.save()
+    return instance
