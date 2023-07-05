@@ -1,11 +1,9 @@
-from django.urls import path
+# from django.urls import path
 
-from . import views
+# from . import views
 
 
-urlpatterns = [
-    path("copies/", views.CopyView.as_view()),
-    path("copies/<int:pk>/", views.CopyDetailView.as_view())
-
-]
-
+# urlpatterns = [
+#     path("copies/", views.CopyView.as_view()),
+#     path("copies/<int:pk>/", views.CopyDetailView.as_view()),
+# ]
