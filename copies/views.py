@@ -11,6 +11,10 @@ class CopyView(generics.ListCreateAPIView):
      serializer_class = CopySerializer
 
 
-class CopyDetailView(generics.RetrieveAPIView):
-    queryset = Copy.objects.all()
-    serializer_class = CopySerializer
+     lookup_url_kwarg = "pk"
+
+
+     def perform_create(self, serializer):
+       serializer.save(book_id=self.kwargs.get("pk"))
+
+
