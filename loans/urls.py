@@ -1,9 +1,13 @@
-from django.urls import path
+"""from django.urls import path
 from . import views
 from rest_framework_simplejwt import views as jwt_views
+from .views import LoanViewList
 
 urlpatterns = [
-    # path("books/<int:pk>/loans/", views.CreateLoanView.as_view()),
-    # path("loans/<int:book_id>/", views.ReturnLoanView.as_view()),
-    path("loans/", views.LoanView.as_view()),
+    path("loans/", views.LoanViewList.as_view()),
 ]
+"""
+from django.urls import path
+from .views import LoanViewList
+
+urlpatterns = [path("loans/", LoanViewList.as_view())]

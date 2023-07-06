@@ -3,11 +3,12 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.generics import ListCreateAPIView
 from .models import Book
 from .serializers import BookSerializer
+from .permission import IsAdminOrReadOnly
 
 
 class BooksView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer

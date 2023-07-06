@@ -5,6 +5,7 @@ from copies.serializers import CopySerializer
 
 
 class LoanSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     copy = CopySerializer(read_only=True)
     user = UserSerializer(read_only=True)
 
