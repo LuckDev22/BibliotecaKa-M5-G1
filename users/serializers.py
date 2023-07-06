@@ -53,6 +53,7 @@ class UserSerializer(serializers.ModelSerializer):
             "category_preference",
             "is_student",
             "is_superuser",
+            "is_blocked",
         ]
         extra_kwargs = {
             "password": {"write_only": True},

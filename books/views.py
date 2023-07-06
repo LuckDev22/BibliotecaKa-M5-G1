@@ -5,7 +5,6 @@ from .models import Book
 from .serializers import BookSerializer
 
 
-
 class BooksView(ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -14,4 +13,5 @@ class BooksView(ListCreateAPIView):
     serializer_class = BookSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        book = serializer.save()
+        book.user.set([self.request.user])

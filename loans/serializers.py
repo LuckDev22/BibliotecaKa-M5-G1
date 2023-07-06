@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Loan
-from .serializers import UserSerializer, CopySerializer
+from users.serializers import UserSerializer
+from copies.serializers import CopySerializer
 
 
 class LoanSerializer(serializers.ModelSerializer):
@@ -9,7 +10,7 @@ class LoanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loan
-        fields = ["id", " data_emprestimo", "data_devolucao", "copy", "user"]
+        fields = ["id", "data_emprestimo", "data_devolucao", "copy", "user"]
 
     def create(self, validated_data):
         return Loan.objects.create(**validated_data)

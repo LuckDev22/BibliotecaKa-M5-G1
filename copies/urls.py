@@ -1,11 +1,6 @@
 from django.urls import path
-
-from . import views
-
+from loans.views import LoanView
 
 urlpatterns = [
-    path("copies/", views.CopyView.as_view()),
-    path("copies/<int:pk>/", views.CopyDetailView.as_view())
-
+    path("books/<int:pk>/loans/", LoanView.as_view(), name="copy-loans"),
 ]
-
