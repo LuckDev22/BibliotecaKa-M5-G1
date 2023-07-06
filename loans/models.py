@@ -1,10 +1,8 @@
 from django.db import models
 from datetime import timedelta, datetime
 import pytz
-import numpy as np
 
 
-# Create your models here.
 class Loan(models.Model):
     data_emprestimo = models.DateTimeField(auto_now_add=True)
     data_devolucao = models.DateField()
