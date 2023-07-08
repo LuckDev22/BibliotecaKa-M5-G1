@@ -27,3 +27,12 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
             serializer.save(password=make_password(password))
         else:
             serializer.save()
+            
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_blocked = False
+        instance.blocked_until = None
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)

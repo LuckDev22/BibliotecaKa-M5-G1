@@ -25,6 +25,16 @@ class LoanView(ListCreateAPIView):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
 
+    def create(self, request, *args, **kwargs):
+        user_id = request.data.get("user_id")
+        user = get_object_or_404(User, pk=user_id)
+
+        if user.is_blocked:
+            blocked_status = user.get_blocked_status()
+            return Response({"error": blocked_status}, status=status.HTTP_403_FORBIDDEN)
+
+        return super().create(request, *args, **kwargs)
+
     def perform_create(self, serializer):
         book = get_object_or_404(Book, pk=self.kwargs["pk"])
         copy_status = self.request.data.get("status", "Disponível")
@@ -53,9 +63,9 @@ class LoanViewList(APIView):
         user = request.user
         if not user.is_authenticated:
             return Response("Usuário não autenticado", status=401)
-        if user.is_superuser:  # Administrador
+        if user.is_superuser:  
             loans = Loan.objects.all()
-        else:  # Estudante
+        else:  
             loans = Loan.objects.filter(user=user)
         serializer = LoanSerializer(instance=loans, many=True)
         return Response(serializer.data)
