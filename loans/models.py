@@ -3,7 +3,7 @@ from datetime import timedelta, datetime
 from django.utils import timezone
 import pytz
 import numpy as np
-from datetime import datetime
+
 
 
 class Loan(models.Model):
