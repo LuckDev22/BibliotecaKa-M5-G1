@@ -13,3 +13,4 @@ class Book(models.Model):
     description = models.CharField(max_length=255)
 
     user = models.ManyToManyField("users.User", related_name="books")
+
