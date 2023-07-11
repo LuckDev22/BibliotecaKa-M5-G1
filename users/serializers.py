@@ -76,3 +76,9 @@ def update(self, instance: User, validated_data):
         setattr(instance, key, values)
     instance.save()
     return instance
+
+
+class SendEmailSerializer(serializers.Serializer):
+    subject = serializers.CharField()
+    message = serializers.CharField()
+    recipient_list = serializers.ListField()
