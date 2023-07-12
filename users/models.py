@@ -1,5 +1,7 @@
+from datetime import timedelta
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 class CategoryChoices(models.TextChoices):
@@ -24,3 +26,15 @@ class User(AbstractUser):
     )
     is_student = models.BooleanField(null=True, default=False)
     is_blocked = models.BooleanField(default=False)
+    blocked_until = models.DateField(default=None, null=True)
+
+    def get_blocked_status(self):
+        if self.is_blocked:
+            if self.blocked_until is not None:
+             if self.blocked_until <= timezone.now().date():
+                return "Bloqueado até " + str(self.blocked_until)
+            else:
+                return "Bloqueado"
+        else:
+            return "Bloqueado"
+        return "Bloqueado até " + str(self.blocked_until)

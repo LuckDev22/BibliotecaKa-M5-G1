@@ -31,6 +31,7 @@ class UserDetailView(RetrieveUpdateDestroyAPIView):
             serializer.save()
 
 
+
 class SendEmailView(APIView):
     def post(self, req: Request) -> Response:
         serializer = SendEmailSerializer(data=req.data)
@@ -43,3 +44,13 @@ class SendEmailView(APIView):
         )
 
         return Response({"Msg": "Emails enviados"})
+
+            
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_blocked = False
+        instance.blocked_until = None
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
